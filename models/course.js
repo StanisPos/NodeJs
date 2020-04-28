@@ -23,7 +23,7 @@ class Course {
         const courses = await Course.getAll();
         courses.push(this.getCourse());
 
-        await Course.writeToFile(courses);
+        Course.writeToFile(courses);
     }
 
     static coursesPath = path.join(__dirname, '..', 'data', 'courses.json');
@@ -37,6 +37,8 @@ class Course {
                     if (err) {
                         reject(err);
                     }
+
+                    resolve();
                 }
             )
         })
