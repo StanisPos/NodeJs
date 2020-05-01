@@ -19,6 +19,14 @@ class Course {
         }
     }
 
+    static async update(course) {
+        const courses = await Course.getAll();
+        const index = courses.findIndex(el => el.id === course.id);
+        courses[index] = course;
+
+        Course.writeToFile(courses);
+    }
+
     async save() {
         const courses = await Course.getAll();
         courses.push(this.getCourse());
@@ -59,6 +67,12 @@ class Course {
             )
         })
     }
+
+    static async getById(id) {
+        const courses = await Course.getAll();
+        return courses.find(c => c.id === id);
+    }
+
 }
 
 module.exports = Course;
